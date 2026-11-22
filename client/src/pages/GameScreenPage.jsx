@@ -24,6 +24,8 @@ import {
   AlertTriangle,
   ArrowRight,
   Flame,
+  Camera,
+  Check,
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
@@ -71,8 +73,37 @@ export default function GameScreenPage() {
   const [reviveUsed, setReviveUsed] = useState(false);
   const [doubleCreditsClaimed, setDoubleCreditsClaimed] = useState(false);
   const [doubleScoreClaimed, setDoubleScoreClaimed] = useState(false);
+  const [screenshotSuccess, setScreenshotSuccess] = useState(false);
 
   const gameInstanceRef = useRef(null);
+
+  // Take high-resolution gameplay screenshot directly from Phaser
+  const handleTakeScreenshot = () => {
+    try {
+      if (gameInstanceRef.current?.renderer) {
+        gameInstanceRef.current.renderer.snapshot((image) => {
+          const link = document.createElement('a');
+          link.download = `space_shooter_odyssey_${mission.id}_${Date.now()}.png`;
+          link.href = image.src;
+          link.click();
+          setScreenshotSuccess(true);
+          setTimeout(() => setScreenshotSuccess(false), 2000);
+        });
+      } else {
+        const canvas = document.querySelector('canvas');
+        if (canvas) {
+          const link = document.createElement('a');
+          link.download = `space_shooter_odyssey_${mission.id}_${Date.now()}.png`;
+          link.href = canvas.toDataURL('image/png');
+          link.click();
+          setScreenshotSuccess(true);
+          setTimeout(() => setScreenshotSuccess(false), 2000);
+        }
+      }
+    } catch (err) {
+      console.warn('Screenshot capture fallback:', err.message);
+    }
+  };
 
   // Initialize Game Session with Backend
   useEffect(() => {
@@ -299,12 +330,25 @@ export default function GameScreenPage() {
           </div>
         </div>
 
-        {/* Right: Kills & Pause Button */}
-        <div className="flex items-center gap-3">
+        {/* Right: Kills, Screenshot & Pause Button */}
+        <div className="flex items-center gap-2 sm:gap-3">
           <div className="text-right">
             <span className="text-[10px] text-slate-400 block">KILLS</span>
             <span className="text-emerald-400 font-bold">{stats.enemiesDefeated}</span>
           </div>
+
+          {/* Instant In-Game Screenshot Button */}
+          <button
+            onClick={handleTakeScreenshot}
+            className={`p-1.5 rounded-lg border transition-all ${
+              screenshotSuccess
+                ? 'bg-emerald-950/80 border-emerald-400 text-emerald-300'
+                : 'bg-slate-900 hover:bg-slate-800 border-cyan-500/40 text-cyan-400 hover:text-cyan-200'
+            }`}
+            title="Take Gameplay Screenshot"
+          >
+            {screenshotSuccess ? <Check className="w-4 h-4 text-emerald-400" /> : <Camera className="w-4 h-4" />}
+          </button>
 
           <button
             onClick={togglePause}

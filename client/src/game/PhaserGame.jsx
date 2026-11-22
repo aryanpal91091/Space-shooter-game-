@@ -37,6 +37,9 @@ export default function PhaserGame({
       },
       scene: [BootScene, SpaceScene],
       backgroundColor: '#030712',
+      render: {
+        preserveDrawingBuffer: true,
+      },
     };
 
     const game = new Phaser.Game(config);
