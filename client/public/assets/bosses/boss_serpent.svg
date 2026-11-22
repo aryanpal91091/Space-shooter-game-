@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 140" width="160" height="140">
+  <defs>
+    <linearGradient id="serpentGrad" x1="80" y1="5" x2="80" y2="135" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#059669"/>
+      <stop offset="50%" stop-color="#0f766e"/>
+      <stop offset="100%" stop-color="#134e4a"/>
+    </linearGradient>
+  </defs>
+  <!-- Biomechanical Serpent Mandibles -->
+  <path d="M 80,125 C 130,105 145,50 120,15 C 95,45 85,75 80,95 C 75,75 65,45 40,15 C 15,50 30,105 80,125 Z" fill="url(#serpentGrad)" stroke="#10b981" stroke-width="2.5"/>
+  <!-- Segmented Plates -->
+  <polygon points="80,100 105,70 80,55 55,70" fill="#042f2e" stroke="#34d399" stroke-width="2"/>
+  <polygon points="80,50 98,30 80,20 62,30" fill="#042f2e" stroke="#34d399" stroke-width="1.5"/>
+  <!-- Glowing Acid Glands -->
+  <circle cx="80" cy="72" r="9" fill="#10b981" stroke="#6ee7b7" stroke-width="2"/>
+  <circle cx="45" cy="55" r="5" fill="#a7f3d0"/>
+  <circle cx="115" cy="55" r="5" fill="#a7f3d0"/>
+</svg>

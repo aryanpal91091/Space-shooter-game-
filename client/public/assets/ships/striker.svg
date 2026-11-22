@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" width="80" height="80">
+  <defs>
+    <linearGradient id="strikerHull" x1="40" y1="5" x2="40" y2="75" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#f43f5e"/>
+      <stop offset="60%" stop-color="#be123c"/>
+      <stop offset="100%" stop-color="#881337"/>
+    </linearGradient>
+  </defs>
+  <!-- Aggressive forward swept wings -->
+  <polygon points="40,10 74,38 68,68 48,56 40,66 32,56 12,68 6,38" fill="url(#strikerHull)" stroke="#fb7185" stroke-width="1.5"/>
+  <!-- Heavy cannons -->
+  <rect x="18" y="22" width="5" height="34" rx="2" fill="#fb7185" stroke="#f43f5e"/>
+  <rect x="57" y="22" width="5" height="34" rx="2" fill="#fb7185" stroke="#f43f5e"/>
+  <!-- Center Core -->
+  <polygon points="40,8 46,48 40,60 34,48" fill="#18181b" stroke="#f43f5e" stroke-width="2"/>
+  <circle cx="40" cy="32" r="5" fill="#f43f5e"/>
+  <!-- Dual Thrusters -->
+  <polygon points="34,60 36,76 39,60" fill="#fb7185"/>
+  <polygon points="41,60 44,76 46,60" fill="#fb7185"/>
+</svg>

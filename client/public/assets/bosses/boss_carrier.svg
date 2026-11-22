@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 170 140" width="170" height="140">
+  <defs>
+    <linearGradient id="carrierHull" x1="85" y1="5" x2="85" y2="135" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#1e1b4b"/>
+      <stop offset="50%" stop-color="#312e81"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+  </defs>
+  <!-- Massive Winged Flight Decks -->
+  <polygon points="85,120 160,70 145,20 85,35 25,20 10,70" fill="url(#carrierHull)" stroke="#6366f1" stroke-width="2.5"/>
+  <!-- Twin Launch Bays -->
+  <rect x="35" y="45" width="22" height="42" rx="4" fill="#020617" stroke="#818cf8" stroke-width="2"/>
+  <rect x="113" y="45" width="22" height="42" rx="4" fill="#020617" stroke="#818cf8" stroke-width="2"/>
+  <line x1="46" y1="45" x2="46" y2="87" stroke="#a5b4fc" stroke-dasharray="3,3"/>
+  <line x1="124" y1="45" x2="124" y2="87" stroke="#a5b4fc" stroke-dasharray="3,3"/>
+  <!-- Central Command Bridge -->
+  <polygon points="85,50 102,78 85,92 68,78" fill="#4338ca" stroke="#c7d2fe" stroke-width="1.5"/>
+  <circle cx="85" cy="74" r="5" fill="#f43f5e"/>
+</svg>

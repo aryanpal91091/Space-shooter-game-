@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" width="80" height="80">
+  <defs>
+    <linearGradient id="guardHull" x1="40" y1="5" x2="40" y2="75" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#10b981"/>
+      <stop offset="50%" stop-color="#059669"/>
+      <stop offset="100%" stop-color="#064e3b"/>
+    </linearGradient>
+  </defs>
+  <!-- Broad Armored Hull -->
+  <polygon points="40,8 70,28 66,66 50,70 40,64 30,70 14,66 10,28" fill="url(#guardHull)" stroke="#34d399" stroke-width="2"/>
+  <!-- Front Shield Plating -->
+  <polygon points="40,16 60,32 54,44 40,36 26,44 20,32" fill="#064e3b" stroke="#10b981" stroke-width="1.5"/>
+  <!-- Armored Cockpit -->
+  <rect x="36" y="24" width="8" height="18" rx="3" fill="#6ee7b7"/>
+  <!-- Dual Heavy Shield Pods -->
+  <circle cx="16" cy="46" r="6" fill="#047857" stroke="#34d399" stroke-width="1.5"/>
+  <circle cx="64" cy="46" r="6" fill="#047857" stroke="#34d399" stroke-width="1.5"/>
+  <!-- Heavy Triple Thrusters -->
+  <polygon points="32,66 34,76 36,66" fill="#34d399"/>
+  <polygon points="38,66 40,78 42,66" fill="#34d399"/>
+  <polygon points="44,66 46,76 48,66" fill="#34d399"/>
+</svg>

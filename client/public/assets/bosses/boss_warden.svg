@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 140" width="160" height="140">
+  <defs>
+    <linearGradient id="wardenArmor" x1="80" y1="5" x2="80" y2="135" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#475569"/>
+      <stop offset="50%" stop-color="#334155"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+  </defs>
+  <!-- Heavy Fortress Dreadnought Hull -->
+  <polygon points="80,130 145,50 130,15 80,30 30,15 15,50" fill="url(#wardenArmor)" stroke="#94a3b8" stroke-width="3"/>
+  <!-- Armored Blast Shields -->
+  <polygon points="80,105 125,55 110,35 80,48 50,35 35,55" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/>
+  <!-- Central Red Core Eye -->
+  <circle cx="80" cy="65" r="14" fill="#dc2626" stroke="#f87171" stroke-width="3"/>
+  <circle cx="80" cy="65" r="6" fill="#fef08a"/>
+  <!-- Heavy Gatling Turrets -->
+  <rect x="25" y="45" width="8" height="40" rx="3" fill="#64748b" stroke="#cbd5e1" stroke-width="1.5"/>
+  <rect x="127" y="45" width="8" height="40" rx="3" fill="#64748b" stroke="#cbd5e1" stroke-width="1.5"/>
+  <rect x="55" y="65" width="6" height="35" rx="3" fill="#64748b"/>
+  <rect x="99" y="65" width="6" height="35" rx="3" fill="#64748b"/>
+</svg>

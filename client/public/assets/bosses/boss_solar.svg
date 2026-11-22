@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 140" width="160" height="140">
+  <defs>
+    <radialGradient id="solarGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fef08a"/>
+      <stop offset="35%" stop-color="#f97316"/>
+      <stop offset="70%" stop-color="#dc2626"/>
+      <stop offset="100%" stop-color="#7f1d1d"/>
+    </radialGradient>
+  </defs>
+  <!-- Radiating Spikes -->
+  <polygon points="80,5 92,45 80,35 68,45" fill="#f59e0b"/>
+  <polygon points="80,135 92,95 80,105 68,95" fill="#ea580c"/>
+  <polygon points="15,70 55,82 45,70 55,58" fill="#f59e0b"/>
+  <polygon points="145,70 105,82 115,70 105,58" fill="#ea580c"/>
+  <polygon points="30,25 65,50 55,42 45,55" fill="#ea580c"/>
+  <polygon points="130,25 95,50 105,42 115,55" fill="#ea580c"/>
+  <polygon points="30,115 65,90 55,98 45,85" fill="#f59e0b"/>
+  <polygon points="130,115 95,90 105,98 115,85" fill="#f59e0b"/>
+  <!-- Central Solar Sphere -->
+  <circle cx="80" cy="70" r="42" fill="url(#solarGlow)" stroke="#fde047" stroke-width="3"/>
+  <circle cx="80" cy="70" r="22" fill="#fff" opacity="0.4"/>
+</svg>

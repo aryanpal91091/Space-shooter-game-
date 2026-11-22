@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 150" width="180" height="150">
+  <defs>
+    <linearGradient id="emperorGrad" x1="90" y1="5" x2="90" y2="145" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#581c87"/>
+      <stop offset="40%" stop-color="#3b0764"/>
+      <stop offset="100%" stop-color="#090514"/>
+    </linearGradient>
+  </defs>
+  <!-- Triple Tiered Imperial Wings -->
+  <polygon points="90,140 170,80 160,25 125,50 90,15 55,50 20,25 10,80" fill="url(#emperorGrad)" stroke="#c084fc" stroke-width="3"/>
+  <!-- Gold Royal Inlays -->
+  <polygon points="90,120 135,75 115,55 90,65 65,55 45,75" fill="#1e1035" stroke="#facc15" stroke-width="2"/>
+  <!-- Void Singularity Eye -->
+  <circle cx="90" cy="80" r="18" fill="#000000" stroke="#ec4899" stroke-width="3"/>
+  <circle cx="90" cy="80" r="10" fill="#a855f7"/>
+  <circle cx="90" cy="80" r="4" fill="#ffffff"/>
+  <!-- Outer Energy Spires -->
+  <polygon points="25,30 35,65 20,65" fill="#e879f9"/>
+  <polygon points="155,30 160,65 145,65" fill="#e879f9"/>
+</svg>

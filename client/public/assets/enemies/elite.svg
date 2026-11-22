@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 76 76" width="76" height="76">
+  <defs>
+    <linearGradient id="eliteHull" x1="38" y1="5" x2="38" y2="70" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="50%" stop-color="#334155"/>
+      <stop offset="100%" stop-color="#020617"/>
+    </linearGradient>
+  </defs>
+  <!-- Sharp aggressive wings with gold accents -->
+  <polygon points="38,68 68,36 60,12 38,20 16,12 8,36" fill="url(#eliteHull)" stroke="#eab308" stroke-width="2"/>
+  <polygon points="38,56 50,34 38,26 26,34" fill="#eab308" opacity="0.3"/>
+  <circle cx="38" cy="38" r="8" fill="#ef4444" stroke="#facc15" stroke-width="2"/>
+  <circle cx="38" cy="38" r="3" fill="#ffffff"/>
+  <!-- Wingtip weapons -->
+  <rect x="7" y="32" width="4" height="20" rx="2" fill="#eab308"/>
+  <rect x="65" y="32" width="4" height="20" rx="2" fill="#eab308"/>
+</svg>

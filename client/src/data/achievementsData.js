@@ -1,0 +1,86 @@
+/**
+ * SPACE SHOOTER ODYSSEY — 10 Mandatory Achievements
+ */
+
+export const ACHIEVEMENTS_DATA = [
+  {
+    id: 'first_contact',
+    title: 'First Contact',
+    description: 'Destroy your first hostile enemy vessel.',
+    icon: 'Crosshair',
+    reward: { credits: 100, xp: 50 },
+    category: 'combat',
+  },
+  {
+    id: 'first_victory',
+    title: 'First Victory',
+    description: 'Successfully complete any campaign mission.',
+    icon: 'Trophy',
+    reward: { credits: 200, xp: 100 },
+    category: 'progression',
+  },
+  {
+    id: 'fleet_recruit',
+    title: 'Fleet Recruit',
+    description: 'Unlock a second combat ship in your hangar.',
+    icon: 'Rocket',
+    reward: { credits: 300, xp: 150, energyCores: 1 },
+    category: 'fleet',
+  },
+  {
+    id: 'elite_hunter',
+    title: 'Elite Hunter',
+    description: 'Defeat 5 elite vanguard enemy flagships.',
+    icon: 'Skull',
+    reward: { credits: 500, xp: 250 },
+    category: 'combat',
+  },
+  {
+    id: 'boss_breaker',
+    title: 'Boss Breaker',
+    description: 'Defeat your first sector boss (The Iron Warden).',
+    icon: 'ShieldAlert',
+    reward: { credits: 750, xp: 400, energyCores: 2 },
+    category: 'boss',
+  },
+  {
+    id: 'sector_explorer',
+    title: 'Sector Explorer',
+    description: 'Unlock and enter Sector 2: Crimson Nebula.',
+    icon: 'Compass',
+    reward: { credits: 400, xp: 200 },
+    category: 'exploration',
+  },
+  {
+    id: 'ace_pilot',
+    title: 'Ace Pilot',
+    description: 'Earn a 3-star rating on any mission.',
+    icon: 'Star',
+    reward: { credits: 350, xp: 150 },
+    category: 'mastery',
+  },
+  {
+    id: 'shield_specialist',
+    title: 'Shield Specialist',
+    description: 'Successfully activate the Shield Pulse power-up 5 times.',
+    icon: 'Shield',
+    reward: { credits: 300, xp: 120 },
+    category: 'abilities',
+  },
+  {
+    id: 'power_collector',
+    title: 'Power Collector',
+    description: 'Activate 4 different combat power-ups during gameplay.',
+    icon: 'Zap',
+    reward: { credits: 450, xp: 200 },
+    category: 'abilities',
+  },
+  {
+    id: 'void_conqueror',
+    title: 'Void Conqueror',
+    description: 'Defeat the final Sector 5 boss: Void Emperor.',
+    icon: 'Crown',
+    reward: { credits: 5000, xp: 2000, energyCores: 10 },
+    category: 'boss',
+  },
+];

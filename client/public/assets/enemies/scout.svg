@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60" width="60" height="60">
+  <defs>
+    <linearGradient id="scoutHull" x1="30" y1="5" x2="30" y2="55" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#ea580c"/>
+      <stop offset="100%" stop-color="#9a3412"/>
+    </linearGradient>
+  </defs>
+  <!-- Dart shape pointing down -->
+  <polygon points="30,54 48,12 30,22 12,12" fill="url(#scoutHull)" stroke="#f97316" stroke-width="1.5"/>
+  <ellipse cx="30" cy="28" rx="4" ry="6" fill="#fde047"/>
+</svg>

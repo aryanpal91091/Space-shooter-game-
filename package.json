@@ -1,0 +1,24 @@
+{
+  "name": "space-shooter-odyssey",
+  "version": "1.0.0",
+  "private": true,
+  "description": "SPACE SHOOTER ODYSSEY - VELoop Rewards Full-Stack Developer Internship Assignment",
+  "scripts": {
+    "client": "npm --prefix client run dev",
+    "server": "npm --prefix server run dev",
+    "test:server": "npm --prefix server test",
+    "test": "npm --prefix server test",
+    "build": "npm --prefix client run build"
+  },
+  "keywords": [
+    "phaser3",
+    "space-shooter",
+    "game",
+    "full-stack",
+    "react",
+    "express",
+    "mongodb"
+  ],
+  "author": "Intern Developer",
+  "license": "MIT"
+}

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 70 70" width="70" height="70">
+  <defs>
+    <linearGradient id="cruiserHull" x1="35" y1="5" x2="35" y2="65" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#7c2d12"/>
+      <stop offset="50%" stop-color="#b45309"/>
+      <stop offset="100%" stop-color="#451a03"/>
+    </linearGradient>
+  </defs>
+  <polygon points="35,66 60,34 52,10 35,16 18,10 10,34" fill="url(#cruiserHull)" stroke="#f59e0b" stroke-width="2"/>
+  <rect x="24" y="24" width="22" height="14" rx="2" fill="#18181b" stroke="#f59e0b" stroke-width="1.5"/>
+  <circle cx="35" cy="31" r="5" fill="#ef4444"/>
+  <polygon points="35,48 42,56 28,56" fill="#f59e0b"/>
+</svg>
