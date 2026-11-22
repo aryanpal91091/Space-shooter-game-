@@ -1,8 +1,11 @@
 import express from 'express';
-import { getOwnedShips, selectShip, unlockShip, upgradeShip } from '../controllers/shipController.js';
+import { getShipCatalog, getOwnedShips, selectShip, unlockShip, upgradeShip } from '../controllers/shipController.js';
 import { authenticateToken } from '../middleware/auth.js';
 
 const router = express.Router();
+
+// Public catalog access
+router.get('/', getShipCatalog);
 
 router.use(authenticateToken);
 

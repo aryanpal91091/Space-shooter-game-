@@ -9,6 +9,8 @@ import authRoutes from './routes/authRoutes.js';
 import playerRoutes from './routes/playerRoutes.js';
 import shipRoutes from './routes/shipRoutes.js';
 import gameRoutes from './routes/gameRoutes.js';
+import missionRoutes from './routes/missionRoutes.js';
+import powerupRoutes from './routes/powerupRoutes.js';
 import economyRoutes from './routes/economyRoutes.js';
 import adRoutes from './routes/adRoutes.js';
 import engagementRoutes from './routes/engagementRoutes.js';
@@ -44,6 +46,8 @@ app.get('/api/health', (req, res) => {
 app.use('/api/auth', authRoutes);
 app.use('/api/player', playerRoutes);
 app.use('/api/ships', shipRoutes);
+app.use('/api/missions', missionRoutes);
+app.use('/api/powerups', powerupRoutes);
 app.use('/api/games', gameRoutes);
 app.use('/api/wallet', economyRoutes);
 app.use('/api/economy', economyRoutes);

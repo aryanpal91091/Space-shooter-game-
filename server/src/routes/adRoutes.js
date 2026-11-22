@@ -1,5 +1,6 @@
 import express from 'express';
 import { createAdOpportunity, verifyAdEvent, claimAdReward } from '../controllers/adController.js';
+import { getRewardHistory } from '../controllers/economyController.js';
 import { authenticateToken } from '../middleware/auth.js';
 import { economyLimiter } from '../middleware/rateLimiter.js';
 
@@ -11,5 +12,6 @@ router.use(economyLimiter);
 router.post('/ad/opportunity', createAdOpportunity);
 router.post('/ad/verify', verifyAdEvent);
 router.post('/ad/claim', claimAdReward);
+router.get('/history', getRewardHistory);
 
 export default router;

@@ -127,3 +127,19 @@ export const getEvents = (req, res) => {
     ],
   });
 };
+
+export const getEventProgress = async (req, res, next) => {
+  try {
+    const { eventId } = req.params;
+    res.status(200).json({
+      eventId,
+      active: true,
+      currentProgress: 3,
+      targetProgress: 5,
+      completed: false,
+      reward: { credits: 500, energyCores: 2 },
+    });
+  } catch (err) {
+    next(err);
+  }
+};

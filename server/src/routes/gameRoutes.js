@@ -1,5 +1,11 @@
 import express from 'express';
-import { startGame, completeGame, getGameHistory } from '../controllers/gameController.js';
+import {
+  startGame,
+  completeGame,
+  claimSessionReward,
+  usePowerupInSession,
+  getGameHistory,
+} from '../controllers/gameController.js';
 import {
   requestRevive,
   verifyRevive,
@@ -16,6 +22,8 @@ router.use(authenticateToken);
 
 router.post('/start', startGame);
 router.post('/:sessionId/complete', completeGame);
+router.post('/:sessionId/claim', claimSessionReward);
+router.post('/:sessionId/powerups/use', usePowerupInSession);
 router.get('/history', getGameHistory);
 
 // Specific game session ad shortcuts as required by spec Section 30

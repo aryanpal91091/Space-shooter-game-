@@ -2,6 +2,15 @@ import PlayerShip from '../models/PlayerShip.js';
 import PlayerProfile from '../models/PlayerProfile.js';
 import { WalletService } from '../services/economy/walletService.js';
 import { ECONOMY_CONFIG } from '../config/economyConfig.js';
+import { SHIPS_DATA } from '../data/shipsData.js';
+
+export const getShipCatalog = async (req, res, next) => {
+  try {
+    res.status(200).json({ ships: SHIPS_DATA });
+  } catch (err) {
+    next(err);
+  }
+};
 
 const SHIP_PRICING = {
   interceptor: { credits: 0, energyCores: 0 },

@@ -213,4 +213,53 @@ describe('Space Shooter Odyssey — Comprehensive Backend & Economy Test Suite',
       ).rejects.toThrow(/already finalized/);
     });
   });
+
+  // --- 5. CATALOGS & POWER-UPS INTEGRATION TESTS ---
+  describe('Full Catalog & Power-Up Economy Endpoints', () => {
+    it('GET /api/missions returns all 5 sectors and 50 data-driven missions', async () => {
+      const res = await request(app).get('/api/missions');
+      expect(res.status).toBe(200);
+      expect(res.body.sectors.length).toBe(5);
+      expect(res.body.missions.length).toBe(50);
+      expect(res.body.missions[0].id).toBe('m-1');
+      expect(res.body.missions[49].id).toBe('m-50');
+    });
+
+    it('GET /api/ships returns 5 ship classes with specs and upgrade paths', async () => {
+      const res = await request(app).get('/api/ships');
+      expect(res.status).toBe(200);
+      expect(res.body.ships.length).toBe(5);
+    });
+
+    it('GET /api/powerups returns 8 mandatory power-ups', async () => {
+      const res = await request(app).get('/api/powerups');
+      expect(res.status).toBe(200);
+      expect(res.body.powerups.length).toBe(8);
+    });
+
+    it('POST /api/powerups/:powerUpId/acquire atomically buys a power-up', async () => {
+      const res = await request(app)
+        .post('/api/powerups/shield_pulse/acquire')
+        .set('Authorization', `Bearer ${authToken}`);
+      expect(res.status).toBe(200);
+      expect(res.body.powerUpId).toBe('shield_pulse');
+      expect(res.body.inventory.shield_pulse).toBeGreaterThanOrEqual(1);
+    });
+
+    it('GET /api/rewards/history returns reward ledger entries', async () => {
+      const res = await request(app)
+        .get('/api/rewards/history')
+        .set('Authorization', `Bearer ${authToken}`);
+      expect(res.status).toBe(200);
+      expect(Array.isArray(res.body.rewards)).toBe(true);
+    });
+
+    it('GET /api/events/:eventId/progress returns active event telemetry', async () => {
+      const res = await request(app)
+        .get('/api/events/event_nebula_incursion/progress')
+        .set('Authorization', `Bearer ${authToken}`);
+      expect(res.status).toBe(200);
+      expect(res.body.active).toBe(true);
+    });
+  });
 });
