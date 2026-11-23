@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # SPACE SHOOTER ODYSSEY
 
 > **VELoop Rewards — Full-Stack Developer Internship Assignment**  
@@ -242,3 +243,6 @@ npm test
 
 ## 📜 13. License
 Developed for the **VELoop Rewards Full-Stack Developer Internship Assignment**. All original code and assets are licensed under the MIT License.
+=======
+# Space-shooter-game-
+>>>>>>> db66f931574ba181e955c1043a39595aba85b3c7
