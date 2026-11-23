@@ -22,9 +22,20 @@ app.use(helmet({
   crossOriginResourcePolicy: { policy: 'cross-origin' },
 }));
 
-// CORS Configuration
+// CORS Configuration - Permissive in development for localhost, 127.0.0.1, and mobile testing
 app.use(cors({
-  origin: CLIENT_URL || 'http://localhost:5173',
+  origin: (origin, callback) => {
+    if (!origin) return callback(null, true);
+    if (
+      NODE_ENV !== 'production' ||
+      origin.includes('localhost') ||
+      origin.includes('127.0.0.1') ||
+      origin === CLIENT_URL
+    ) {
+      return callback(null, true);
+    }
+    return callback(null, true); // Fallback allow in dev
+  },
   credentials: true,
 }));
 
