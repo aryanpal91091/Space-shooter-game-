@@ -26,6 +26,12 @@ import {
   Flame,
   Camera,
   Check,
+  Rocket,
+  ChevronUp,
+  ChevronDown,
+  ChevronLeft,
+  ChevronRight,
+  Radio,
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
@@ -60,6 +66,7 @@ export default function GameScreenPage() {
     credits: 0,
     energyCores: 0,
     enemiesDefeated: 0,
+    lives: 3,
   });
 
   const [waveInfo, setWaveInfo] = useState({ current: 1, total: 3 });
@@ -231,6 +238,19 @@ export default function GameScreenPage() {
     window.location.reload();
   };
 
+  // Mobile Virtual Directional Control
+  const handleVirtualDirection = (dx, dy) => {
+    try {
+      const spaceScene = gameInstanceRef.current?.scene?.getScene('SpaceScene');
+      if (spaceScene && spaceScene.player && spaceScene.player.active) {
+        const nextX = Math.max(30, Math.min(spaceScene.scale.width - 30, spaceScene.player.x + dx * 28));
+        const nextY = Math.max(60, Math.min(spaceScene.scale.height - 40, spaceScene.player.y + dy * 28));
+        spaceScene.player.setPosition(nextX, nextY);
+        spaceScene.player.setRotation(dx * 0.14);
+      }
+    } catch (_) {}
+  };
+
   // Rewarded Ad: Revive
   const openReviveAd = () => {
     setAdPlacement('REVIVE');
@@ -320,13 +340,26 @@ export default function GameScreenPage() {
           </div>
         </div>
 
-        {/* Center: Mission Score & Wave */}
-        <div className="text-center">
+        {/* Center: Mission Score, Wave, and Arcade Lives */}
+        <div className="text-center flex flex-col items-center">
           <div className="font-heading font-extrabold text-sm text-cyan-300 glow-cyan tracking-wider">
             {stats.score.toLocaleString()} PTS
           </div>
-          <div className="text-[10px] text-slate-400">
-            WAVE {waveInfo.current} / {waveInfo.total}
+          <div className="flex items-center gap-2 text-[10px]">
+            <span className="text-slate-400">WAVE {waveInfo.current}/{waveInfo.total}</span>
+            <span className="text-slate-600">|</span>
+            <div className="flex items-center gap-0.5 text-cyan-400" title={`Reserve Ships: ${stats.lives || 3}`}>
+              {[...Array(3)].map((_, i) => (
+                <Rocket
+                  key={i}
+                  className={`w-3 h-3 transition-opacity ${
+                    i < (stats.lives !== undefined ? stats.lives : 3)
+                      ? 'text-cyan-400 fill-cyan-400 drop-shadow-[0_0_6px_rgba(6,182,212,0.8)]'
+                      : 'text-slate-700 opacity-30'
+                  }`}
+                />
+              ))}
+            </div>
           </div>
         </div>
 
@@ -381,7 +414,7 @@ export default function GameScreenPage() {
       )}
 
       {/* Phaser Canvas Container */}
-      <div className="relative w-full max-w-[480px] h-[640px] sm:h-[700px]">
+      <div className="relative w-full max-w-[480px] h-[640px] sm:h-[700px] touch-none select-none overflow-hidden">
         <PhaserGame
           mission={mission}
           shipConfig={shipConfig}
@@ -393,6 +426,71 @@ export default function GameScreenPage() {
           onMissionEnd={handleMissionEnd}
           gameInstanceRef={gameInstanceRef}
         />
+
+        {/* Mobile On-Screen Virtual Controls */}
+        <div className="absolute inset-x-2 bottom-3 flex items-end justify-between pointer-events-none z-10 opacity-75 sm:opacity-90">
+          {/* Virtual D-Pad (Left Thumb) */}
+          <div className="pointer-events-auto grid grid-cols-3 gap-1 w-28 h-28 p-1 rounded-2xl bg-slate-950/70 border border-cyan-500/30 backdrop-blur-sm shadow-[0_0_15px_rgba(6,182,212,0.15)]">
+            <div />
+            <button
+              type="button"
+              onPointerDown={() => handleVirtualDirection(0, -1)}
+              className="flex items-center justify-center rounded-lg bg-slate-900/90 active:bg-cyan-500 active:text-black border border-slate-700/80 text-cyan-400 transition-colors"
+            >
+              <ChevronUp className="w-5 h-5" />
+            </button>
+            <div />
+            <button
+              type="button"
+              onPointerDown={() => handleVirtualDirection(-1, 0)}
+              className="flex items-center justify-center rounded-lg bg-slate-900/90 active:bg-cyan-500 active:text-black border border-slate-700/80 text-cyan-400 transition-colors"
+            >
+              <ChevronLeft className="w-5 h-5" />
+            </button>
+            <div className="flex items-center justify-center text-[9px] font-mono text-slate-500">
+              PAD
+            </div>
+            <button
+              type="button"
+              onPointerDown={() => handleVirtualDirection(1, 0)}
+              className="flex items-center justify-center rounded-lg bg-slate-900/90 active:bg-cyan-500 active:text-black border border-slate-700/80 text-cyan-400 transition-colors"
+            >
+              <ChevronRight className="w-5 h-5" />
+            </button>
+            <div />
+            <button
+              type="button"
+              onPointerDown={() => handleVirtualDirection(0, 1)}
+              className="flex items-center justify-center rounded-lg bg-slate-900/90 active:bg-cyan-500 active:text-black border border-slate-700/80 text-cyan-400 transition-colors"
+            >
+              <ChevronDown className="w-5 h-5" />
+            </button>
+            <div />
+          </div>
+
+          {/* Quick Special Ability Triggers (Right Thumb) */}
+          <div className="pointer-events-auto flex flex-col gap-2 items-end">
+            <button
+              type="button"
+              onClick={() => triggerPowerup('emp_blast')}
+              className="w-12 h-12 rounded-xl bg-purple-950/80 hover:bg-purple-900 border border-purple-500/60 active:scale-95 text-purple-300 flex flex-col items-center justify-center shadow-[0_0_12px_rgba(168,85,247,0.4)] backdrop-blur-sm"
+              title="EMP Screen Clear"
+            >
+              <Zap className="w-5 h-5 text-purple-400 fill-purple-400" />
+              <span className="text-[8px] font-mono font-bold mt-0.5">EMP</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => triggerPowerup('shield_pulse')}
+              className="w-12 h-12 rounded-xl bg-cyan-950/80 hover:bg-cyan-900 border border-cyan-500/60 active:scale-95 text-cyan-300 flex flex-col items-center justify-center shadow-[0_0_12px_rgba(6,182,212,0.4)] backdrop-blur-sm"
+              title="Shield Overcharge"
+            >
+              <Shield className="w-5 h-5 text-cyan-400 fill-cyan-400" />
+              <span className="text-[8px] font-mono font-bold mt-0.5">SHIELD</span>
+            </button>
+          </div>
+        </div>
 
         {/* Pause Overlay */}
         {isPaused && (

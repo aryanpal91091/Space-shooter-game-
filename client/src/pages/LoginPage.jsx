@@ -37,6 +37,19 @@ export default function LoginPage() {
     setPassword('Odyssey2026!');
   };
 
+  const handleInstantGuestLogin = async () => {
+    setError(null);
+    setLoading(true);
+    try {
+      await login('guest.pilot@spacefleet.io', 'GuestClearance2026!');
+      navigate(from, { replace: true });
+    } catch (err) {
+      setError(err.response?.data?.message || err.message || 'Clearance error.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="min-h-[calc(100vh-8rem)] flex items-center justify-center p-4">
       <div className="w-full max-w-md sci-fi-panel p-8 rounded-2xl border border-cyan-500/30 shadow-[0_0_35px_rgba(6,182,212,0.2)]">
@@ -105,15 +118,24 @@ export default function LoginPage() {
           </button>
         </form>
 
-        {/* Demo Fast Fill */}
+        {/* Demo Fast Fill & Instant Guest Access */}
         <div className="mt-6 pt-5 border-t border-slate-800 flex flex-col gap-3">
+          <button
+            type="button"
+            onClick={handleInstantGuestLogin}
+            disabled={loading}
+            className="w-full py-2.5 px-3 rounded-xl bg-gradient-to-r from-emerald-500/20 to-cyan-500/20 hover:from-emerald-500/30 hover:to-cyan-500/30 border border-emerald-500/40 text-xs font-heading font-bold text-emerald-300 flex items-center justify-center gap-2 transition-all shadow-[0_0_15px_rgba(16,185,129,0.2)]"
+          >
+            <ShieldCheck className="w-4 h-4 text-emerald-400" />
+            Instant Guest Pilot Launch (No Password Required)
+          </button>
+
           <button
             type="button"
             onClick={fillDemoAccount}
             className="w-full py-2 px-3 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 text-xs font-mono text-cyan-400 flex items-center justify-center gap-1.5 transition-colors"
           >
-            <ShieldCheck className="w-3.5 h-3.5" />
-            Auto-fill Test Pilot Credentials
+            Auto-fill Test Pilot Credentials (pilot@veloop.io)
           </button>
 
           <div className="text-center text-xs text-slate-400">
