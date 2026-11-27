@@ -85,6 +85,68 @@ describe('Space Shooter Odyssey — Comprehensive Backend & Economy Test Suite',
       expect(res.status).toBe(200);
       expect(res.body.level).toBeDefined();
     });
+
+    it('generates recovery code and resets password via emergency protocol', async () => {
+      // 1. Request recovery code
+      const forgotRes = await request(app)
+        .post('/api/auth/forgot-password')
+        .send({ email: testPilot.email });
+
+      expect(forgotRes.status).toBe(200);
+      expect(forgotRes.body.recoveryCode).toBeDefined();
+      const code = forgotRes.body.recoveryCode;
+
+      // 2. Reset password using the code
+      const newClearance = 'UpdatedClearance2026!';
+      const resetRes = await request(app)
+        .post('/api/auth/reset-password')
+        .send({
+          email: testPilot.email,
+          code,
+          newPassword: newClearance,
+        });
+
+      expect(resetRes.status).toBe(200);
+      expect(resetRes.body.message).toContain('Clearance code successfully updated');
+
+      // 3. Verify login succeeds with new password
+      const loginRes = await request(app)
+        .post('/api/auth/login')
+        .send({
+          email: testPilot.email,
+          password: newClearance,
+        });
+
+      expect(loginRes.status).toBe(200);
+      expect(loginRes.body.token).toBeDefined();
+    });
+
+    it('successfully preserves guest mode progress upon new pilot registration', async () => {
+      const guestPilot = {
+        username: `GuestMigrated_${Date.now()}`,
+        email: `guest_${Date.now()}@odyssey.com`,
+        password: 'GuestPassword2026!',
+        guestWallet: { credits: 1850, energyCores: 8, xp: 450, level: 2 },
+        guestProgress: { unlockedMissions: ['m-1', 'm-2', 'm-3'] },
+        guestFleet: { unlockedShips: ['interceptor', 'striker'] },
+      };
+
+      const res = await request(app)
+        .post('/api/auth/register')
+        .send(guestPilot);
+
+      expect(res.status).toBe(201);
+      const migratedToken = res.body.token;
+
+      // Verify wallet has migrated credits
+      const balanceRes = await request(app)
+        .get('/api/wallet/balance')
+        .set('Authorization', `Bearer ${migratedToken}`);
+
+      expect(balanceRes.status).toBe(200);
+      expect(balanceRes.body.credits).toBe(1850);
+      expect(balanceRes.body.energyCores).toBe(8);
+    });
   });
 
   // --- 2. WALLET & ATOMIC ECONOMY TESTS ---

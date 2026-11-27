@@ -21,6 +21,11 @@ export const AuthProvider = ({ children }) => {
         setLoading(false);
         return;
       }
+      // If user is currently in Guest Mode, don't ping /auth/me
+      if (user?.isGuest) {
+        setLoading(false);
+        return;
+      }
       try {
         const res = await api.get('/auth/me');
         if (res.data?.user) {
@@ -28,7 +33,7 @@ export const AuthProvider = ({ children }) => {
           localStorage.setItem('odyssey_user', JSON.stringify(res.data.user));
         }
       } catch (err) {
-        console.warn('Auth token verification error:', err.message);
+        console.warn('Auth token verification notice:', err.message);
       } finally {
         setLoading(false);
       }
@@ -36,27 +41,76 @@ export const AuthProvider = ({ children }) => {
     fetchMe();
   }, [token]);
 
-  const login = async (email, password) => {
+  const login = async (email, password, rememberMe = true) => {
     const res = await api.post('/auth/login', { email, password });
     const { token: newToken, user: newUser } = res.data;
+    const finalUser = { ...newUser, isGuest: false };
+
     localStorage.setItem('odyssey_token', newToken);
-    localStorage.setItem('odyssey_user', JSON.stringify(newUser));
+    localStorage.setItem('odyssey_user', JSON.stringify(finalUser));
+    if (rememberMe) {
+      localStorage.setItem('odyssey_remember_email', email);
+    } else {
+      localStorage.removeItem('odyssey_remember_email');
+    }
+
     setToken(newToken);
-    setUser(newUser);
-    return newUser;
+    setUser(finalUser);
+    return finalUser;
   };
 
-  const register = async (username, email, password) => {
-    const res = await api.post('/auth/register', { username, email, password });
+  const loginAsGuest = () => {
+    const guestUser = {
+      id: 'guest_' + Math.random().toString(36).substring(2, 9),
+      username: 'Guest Commander',
+      email: 'guest@odyssey.arcade',
+      role: 'pilot',
+      isGuest: true,
+    };
+    const guestToken = 'guest_token_' + Date.now();
+
+    localStorage.setItem('odyssey_token', guestToken);
+    localStorage.setItem('odyssey_user', JSON.stringify(guestUser));
+    setToken(guestToken);
+    setUser(guestUser);
+    return guestUser;
+  };
+
+  const register = async (username, email, password, guestData = null) => {
+    const payload = {
+      username,
+      email,
+      password,
+      ...(guestData || {}),
+    };
+
+    const res = await api.post('/auth/register', payload);
     const { token: newToken, user: newUser } = res.data;
+    const finalUser = { ...newUser, isGuest: false };
+
     localStorage.setItem('odyssey_token', newToken);
-    localStorage.setItem('odyssey_user', JSON.stringify(newUser));
+    localStorage.setItem('odyssey_user', JSON.stringify(finalUser));
+    localStorage.setItem('odyssey_remember_email', email);
+
     setToken(newToken);
-    setUser(newUser);
-    return newUser;
+    setUser(finalUser);
+    return finalUser;
   };
 
-  const logout = () => {
+  const forgotPassword = async (email) => {
+    const res = await api.post('/auth/forgot-password', { email });
+    return res.data;
+  };
+
+  const resetPassword = async (email, code, newPassword) => {
+    const res = await api.post('/auth/reset-password', { email, code, newPassword });
+    return res.data;
+  };
+
+  const logout = async () => {
+    try {
+      await api.post('/auth/logout');
+    } catch (_) {}
     localStorage.removeItem('odyssey_token');
     localStorage.removeItem('odyssey_user');
     setToken(null);
@@ -70,7 +124,20 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, token, loading, login, register, logout, updateProfile }}>
+    <AuthContext.Provider
+      value={{
+        user,
+        token,
+        loading,
+        login,
+        loginAsGuest,
+        register,
+        forgotPassword,
+        resetPassword,
+        logout,
+        updateProfile,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

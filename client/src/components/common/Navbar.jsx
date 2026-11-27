@@ -20,6 +20,7 @@ import {
   HelpCircle,
   Settings as SettingsIcon,
   ShieldAlert,
+  Sparkles,
 } from 'lucide-react';
 
 export default function Navbar() {
@@ -121,17 +122,28 @@ export default function Navbar() {
                   {audioSettings.muted ? <VolumeX className="w-4 h-4 text-rose-400" /> : <Volume2 className="w-4 h-4 text-cyan-400" />}
                 </button>
 
-                {/* Profile Link */}
-                <Link
-                  to="/profile"
-                  className="hidden sm:flex items-center gap-2 p-1.5 pr-3 rounded-lg bg-slate-900/80 hover:bg-slate-800 border border-slate-800 text-slate-200 transition-colors"
-                  title="Player Profile"
-                >
-                  <div className="w-7 h-7 rounded-md bg-gradient-to-tr from-cyan-600 to-indigo-600 flex items-center justify-center font-bold text-xs text-white">
-                    {user.username?.charAt(0).toUpperCase() || 'P'}
-                  </div>
-                  <span className="text-xs font-semibold max-w-[90px] truncate">{user.username}</span>
-                </Link>
+                {/* Profile Link or Guest Save Progress Pill */}
+                {user.isGuest ? (
+                  <Link
+                    to="/register"
+                    className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-gradient-to-r from-amber-500/20 to-yellow-500/20 hover:from-amber-500/30 hover:to-yellow-500/30 border border-amber-400/50 text-amber-300 text-xs font-mono font-bold transition-all shadow-[0_0_12px_rgba(245,158,11,0.3)] animate-pulse"
+                    title="Guest Mode: Save Progress to Permanent Profile"
+                  >
+                    <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+                    <span>Save Progress</span>
+                  </Link>
+                ) : (
+                  <Link
+                    to="/profile"
+                    className="hidden sm:flex items-center gap-2 p-1.5 pr-3 rounded-lg bg-slate-900/80 hover:bg-slate-800 border border-slate-800 text-slate-200 transition-colors"
+                    title="Player Profile"
+                  >
+                    <div className="w-7 h-7 rounded-md bg-gradient-to-tr from-cyan-600 to-indigo-600 flex items-center justify-center font-bold text-xs text-white">
+                      {user.username?.charAt(0).toUpperCase() || 'P'}
+                    </div>
+                    <span className="text-xs font-semibold max-w-[90px] truncate">{user.username}</span>
+                  </Link>
+                )}
 
                 {/* Logout Button */}
                 <button

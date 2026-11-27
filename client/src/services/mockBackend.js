@@ -101,11 +101,60 @@ export const mockBackend = {
         username: data.username || 'StarPilot',
         email: data.email || 'pilot@fleet.io',
         role: 'Rookie',
+        isGuest: false,
       };
       const token = 'mock_jwt_token_' + Date.now();
       saveStored(STORAGE_KEYS.USER, user);
       saveStored(STORAGE_KEYS.TOKEN, token);
-      return { status: 201, data: { token, user } };
+
+      // Carry over guest progress into registered account
+      if (data.guestWallet) {
+        const wallet = getStored(STORAGE_KEYS.WALLET, getDefaultWallet());
+        wallet.credits = Math.max(wallet.credits, data.guestWallet.credits || 0);
+        wallet.energyCores = Math.max(wallet.energyCores, data.guestWallet.energyCores || 0);
+        wallet.xp = Math.max(wallet.xp, data.guestWallet.xp || 0);
+        wallet.level = Math.max(wallet.level, data.guestWallet.level || 1);
+        saveStored(STORAGE_KEYS.WALLET, wallet);
+      }
+
+      if (data.guestProgress) {
+        const prog = getStored(STORAGE_KEYS.PROGRESS, getDefaultProgress());
+        if (Array.isArray(data.guestProgress.unlockedMissions)) {
+          prog.unlockedMissions = [...new Set([...prog.unlockedMissions, ...data.guestProgress.unlockedMissions])];
+        }
+        if (data.guestProgress.completedMissions) {
+          prog.completedMissions = { ...prog.completedMissions, ...data.guestProgress.completedMissions };
+        }
+        saveStored(STORAGE_KEYS.PROGRESS, prog);
+      }
+
+      return { status: 201, data: { token, user, message: 'Enlistment successful! Fleet progress preserved.' } };
+    }
+
+    if (url === '/auth/forgot-password' && method === 'post') {
+      const code = Math.floor(100000 + Math.random() * 900000).toString();
+      return {
+        status: 200,
+        data: {
+          message: 'Emergency recovery code generated and dispatched.',
+          recoveryCode: code,
+        },
+      };
+    }
+
+    if (url === '/auth/reset-password' && method === 'post') {
+      return {
+        status: 200,
+        data: {
+          success: true,
+          message: 'Clearance code successfully updated. Proceed to authentication terminal.',
+        },
+      };
+    }
+
+    if (url === '/auth/logout') {
+      localStorage.removeItem(STORAGE_KEYS.TOKEN);
+      return { status: 200, data: { message: 'Session terminated safely.' } };
     }
 
     if (url === '/auth/me') {
